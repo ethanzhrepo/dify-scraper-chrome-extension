@@ -8,4 +8,4 @@ A simple plugin for grabbing the main content of a web page. It is used to link 
 
 <img alt="1" src="https://github.com/ethanzhrepo/wrb-dify-scraper/blob/main/screen/2.png?raw=true"/>
 
-<img alt="1" src="https://github.com/ethanzhrepo/wrb-dify-scraper/blob/main/screen/2.png?raw=true"/>
+<img alt="1" src="https://github.com/ethanzhrepo/wrb-dify-scraper/blob/main/screen/1.png?raw=true"/>
