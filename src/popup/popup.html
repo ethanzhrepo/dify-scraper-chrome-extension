@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Extract Main Text</title>
+    <style>
+        body { 
+            font-family: Arial, sans-serif; 
+            margin: 10px; 
+            min-width: 300px;
+            padding: 15px;
+        }
+        .switch {
+            display: flex;
+            align-items: center;
+            margin: 10px 0;
+        }
+        .switch input[type="checkbox"] {
+            margin-right: 10px;
+        }
+        .divider {
+            height: 1px;
+            background-color: #ddd;
+            margin: 15px 0;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #333;
+        }
+        .form-group input[type="text"],
+        .form-group input[type="password"] {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        .save-btn {
+            background: #4CAF50;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 10px;
+        }
+        .save-btn:hover {
+            background: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <div class="switch">
+        <input type="checkbox" id="sidebarToggle">
+        <label for="sidebarToggle">显示边栏</label>
+    </div>
+    <div class="divider"></div>
+    <div class="form-group">
+        <label for="apiEndpoint">Dify API 接入点：</label>
+        <input type="text" id="apiEndpoint" placeholder="https://api.dify.ai/v1">
+    </div>
+    <div class="form-group">
+        <label for="apiKey">Dify API Key：</label>
+        <input type="password" id="apiKey" placeholder="输入您的 API Key">
+    </div>
+    <button class="save-btn" id="saveConfig">保存配置</button>
+    <script src="popup.js"></script>
+</body>
+</html>
