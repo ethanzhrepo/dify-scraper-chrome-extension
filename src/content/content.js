@@ -10,6 +10,27 @@ chrome.runtime.sendMessage({ type: "contentLoaded", message: "Content script loa
 
 // 创建并插入侧边栏
 function createSidebar() {
+    // 创建控制按钮
+    const toggleButton = document.createElement('div');
+    toggleButton.innerHTML = `
+        <div id="sidebar-toggle" style="
+            position: fixed !important;
+            top: 50% !important;
+            right: ${sidebarVisible ? '450px' : '0'} !important;
+            transform: translateY(-50%) !important;
+            background: #4CAF50 !important;
+            color: white !important;
+            padding: 10px !important;
+            cursor: pointer !important;
+            border-radius: 4px 0 0 4px !important;
+            box-shadow: -2px 0 5px rgba(0,0,0,0.1) !important;
+            z-index: 2147483647 !important;
+            transition: right 0.3s ease !important;
+        ">
+            ${sidebarVisible ? '›' : '‹'}
+        </div>
+    `;
+
     const sidebarHTML = `
         <div id="content-sidebar" style="
             position: fixed !important;
@@ -77,10 +98,18 @@ function createSidebar() {
     `;
 
     document.body.insertAdjacentHTML('beforeend', sidebarHTML);
+    document.body.appendChild(toggleButton);
     
     // 添加按钮事件监听器
     document.getElementById('parse-button').addEventListener('click', parsePage);
     document.getElementById('push-button').addEventListener('click', pushToKnowledgeBase);
+    
+    // 添加toggle按钮事件监听
+    document.getElementById('sidebar-toggle').addEventListener('click', async () => {
+        sidebarVisible = !sidebarVisible;
+        await chrome.storage.sync.set({ sidebarEnabled: sidebarVisible });
+        updateSidebarVisibility();
+    });
     
     // 读取存储的设置并设置初始状态
     chrome.storage.sync.get('sidebarEnabled', (result) => {
@@ -92,11 +121,15 @@ function createSidebar() {
 // 更新侧边栏可见性
 function updateSidebarVisibility() {
     const sidebar = document.getElementById('content-sidebar');
-    if (sidebar) {
-        console.log('Updating sidebar visibility:', sidebarVisible); // 调试日志
+    const toggle = document.getElementById('sidebar-toggle');
+    
+    if (sidebar && toggle) {
+        console.log('Updating sidebar visibility:', sidebarVisible);
         sidebar.style.transform = sidebarVisible ? 'translateX(0)' : 'translateX(100%)';
+        toggle.style.right = sidebarVisible ? '450px' : '0';
+        toggle.innerHTML = sidebarVisible ? '›' : '‹';
     } else {
-        console.log('Sidebar element not found'); // 调试日志
+        console.log('Sidebar or toggle element not found');
     }
 }
 
